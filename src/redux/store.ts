@@ -1,6 +1,7 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import articlesReducer from './articles-reducer'
+import logger from 'redux-logger'
 
 const rootReducer = combineReducers({
   articles: articlesReducer
@@ -8,6 +9,6 @@ const rootReducer = combineReducers({
 
 export type RootState = ReturnType<typeof rootReducer>
 
-let store = createStore(rootReducer, applyMiddleware(thunk))
+let store = createStore(rootReducer, applyMiddleware(thunk, logger))
 
 export default store

@@ -36,7 +36,8 @@ type Article = {
 }
 
 let initialState = {
-  articles: null as Array<Article> | null
+  isLoaded: false,
+  items: null as Array<Article> | null
 }
 export type InitialStateType = typeof initialState
 
@@ -48,7 +49,8 @@ const articlesReducer = (
     case SET_ARTICLES:
       return {
         ...state,
-        articles: action.articles
+        isLoaded: true,
+        items: action.articles
       }
     default:
       return state
@@ -71,14 +73,13 @@ export const getTopStories = (section: TopStoriesSection = 'home') => async (
 
   if (response.status === 'OK') {
     dispatch(setArticles(response.results))
-    console.log('here')
   }
 
   // TODO: 401, 429
-  console.log(response)
-  console.log('---')
-  console.log(response.status === 'OK')
-  console.log('---')
+  // console.log(response)
+  // console.log('---')
+  // console.log(response.status === 'OK')
+  // console.log('---')
 }
 
 export default articlesReducer
