@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import Homepage from './components/homepage/HomepageContainer'
+import Homepage from './components/homepage'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme: Theme) =>
