@@ -1,6 +1,7 @@
 import { TopStoriesSection, articlesAPI } from '../api'
 
 const SET_ARTICLES = 'articles/SET_ARTICLES'
+const SET_ERROR = 'articles/SET_ERROR'
 
 type Image = {
   url: string
@@ -53,6 +54,12 @@ const articlesReducer = (
         isLoaded: true,
         items: action.articles
       }
+    case SET_ERROR:
+      return {
+        ...state,
+        isLoaded: true,
+        error: action.error
+      }
     default:
       return state
   }
@@ -67,6 +74,15 @@ export const setArticles = (articles: Array<Article>): SetArticles => ({
   articles
 })
 
+type SetError = {
+  type: typeof SET_ERROR
+  error: string
+}
+export const setError = (error: string): SetError => ({
+  type: SET_ERROR,
+  error
+})
+
 export const getTopStories = (section: TopStoriesSection = 'home') => async (
   dispatch: any
 ) => {
@@ -74,13 +90,9 @@ export const getTopStories = (section: TopStoriesSection = 'home') => async (
 
   if (response.status === 'OK') {
     dispatch(setArticles(response.results))
+  } else if (!response.status) {
+    dispatch(setError(response.message))
   }
-
-  // TODO: 401, 429
-  // console.log(response)
-  // console.log('---')
-  // console.log(response.status === 'OK')
-  // console.log('---')
 }
 
 export default articlesReducer

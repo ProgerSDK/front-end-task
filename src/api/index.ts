@@ -31,6 +31,17 @@ export const articlesAPI = {
     )
     let result = await response.json()
 
+    if (response.status === 401) {
+      result = {
+        message: 'Unauthorized request. Make sure api-key is set.'
+      }
+    } else if (response.status === 429) {
+      result = {
+        message:
+          'Too many requests. You reached your per minute or per day rate limit.'
+      }
+    }
+
     return result
   }
 }

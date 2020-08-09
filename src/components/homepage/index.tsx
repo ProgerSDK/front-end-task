@@ -1,17 +1,14 @@
 import React from 'react'
 import Layout from '../layout'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 import { Article } from '../../redux/articles-reducer'
 import Preloader from '../common/preloader'
+import GridItem from './GridItem'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    paper: {
-      padding: theme.spacing(2)
-    },
     grid: {
       paddingTop: theme.spacing(3),
       paddingBottom: theme.spacing(3)
@@ -38,33 +35,19 @@ const Homepage: React.FC<Props> = ({ isLoaded, articles, error }) => {
           alignItems="stretch"
           className={classes.grid}
         >
-          {error && <Paper>{error}</Paper>}
+          {error && <GridItem>{error}</GridItem>}
+
           {!isLoaded && <Preloader />}
+
           {articles &&
             articles.map((item: any) => (
-              <ArticleLink key={item.title} title={item.title} />
+              <GridItem key={item.title} link="#">
+                {item.title}
+              </GridItem>
             ))}
         </Grid>
       </Container>
     </Layout>
-  )
-}
-
-interface PropsArticleLink {
-  title: string
-}
-
-const ArticleLink: React.FC<PropsArticleLink> = ({ title }) => {
-  const classes = useStyles()
-
-  return (
-    <>
-      <Grid item>
-        <Paper className={classes.paper} elevation={3}>
-          {title}
-        </Paper>
-      </Grid>
-    </>
   )
 }
 
