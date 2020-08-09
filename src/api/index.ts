@@ -1,5 +1,5 @@
 const url = 'https://api.nytimes.com/'
-const apiKey = 'apikey'
+const apiKey = process.env.REACT_APP_API_KEY
 
 let TopStoriesSection:
   | 'arts'

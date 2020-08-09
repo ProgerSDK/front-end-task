@@ -13,7 +13,7 @@ type Image = {
   copyright: string
 }
 
-type Article = {
+export type Article = {
   section: string
   subsection: string
   title: string
