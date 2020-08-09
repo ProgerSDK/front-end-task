@@ -5,18 +5,16 @@ import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 import { Article } from '../../redux/articles-reducer'
+import Preloader from '../common/preloader'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      flexGrow: 1
-    },
     paper: {
       padding: theme.spacing(2)
-      // color: theme.palette.text.secondary
     },
     grid: {
-      paddingTop: theme.spacing(3)
+      paddingTop: theme.spacing(3),
+      paddingBottom: theme.spacing(3)
     }
   })
 )
@@ -24,30 +22,30 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
   articles: Array<Article> | null
   isLoaded: boolean
+  error: null | string
 }
 
-const Homepage: React.FC<Props> = ({ isLoaded, articles }) => {
+const Homepage: React.FC<Props> = ({ isLoaded, articles, error }) => {
   const classes = useStyles()
 
   return (
     <Layout>
-      <div className={classes.root}>
-        <Container maxWidth="md">
-          <Grid
-            container
-            spacing={3}
-            direction="column"
-            alignItems="stretch"
-            className={classes.grid}
-          >
-            {isLoaded &&
-              articles &&
-              articles.map((item: any) => (
-                <ArticleLink key={item.title} title={item.title} />
-              ))}
-          </Grid>
-        </Container>
-      </div>
+      <Container maxWidth="md">
+        <Grid
+          container
+          spacing={3}
+          direction="column"
+          alignItems="stretch"
+          className={classes.grid}
+        >
+          {error && <Paper>{error}</Paper>}
+          {!isLoaded && <Preloader />}
+          {articles &&
+            articles.map((item: any) => (
+              <ArticleLink key={item.title} title={item.title} />
+            ))}
+        </Grid>
+      </Container>
     </Layout>
   )
 }

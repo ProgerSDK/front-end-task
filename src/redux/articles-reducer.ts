@@ -37,7 +37,8 @@ export type Article = {
 
 let initialState = {
   isLoaded: false,
-  items: null as Array<Article> | null
+  items: null as Array<Article> | null,
+  error: null as string | null
 }
 export type InitialStateType = typeof initialState
 

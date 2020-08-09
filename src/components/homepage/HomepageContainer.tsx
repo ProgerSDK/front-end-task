@@ -15,7 +15,11 @@ class HomepageContainer extends React.Component<Props> {
 
   render() {
     return (
-      <Homepage isLoaded={this.props.isLoaded} articles={this.props.articles} />
+      <Homepage
+        isLoaded={this.props.isLoaded}
+        articles={this.props.articles}
+        error={this.props.error}
+      />
     )
   }
 }
@@ -23,7 +27,8 @@ class HomepageContainer extends React.Component<Props> {
 let mapState = (state: RootState) => {
   return {
     isLoaded: state.articles.isLoaded,
-    articles: state.articles.items
+    articles: state.articles.items,
+    error: state.articles.error
   }
 }
 
