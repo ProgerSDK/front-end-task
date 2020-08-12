@@ -2,6 +2,7 @@ import { TopStoriesSection, articlesAPI } from '../api'
 
 const SET_ARTICLES = 'articles/SET_ARTICLES'
 const SET_ERROR = 'articles/SET_ERROR'
+const RESET_STATE = 'articles/RESET_STATE'
 
 type Image = {
   url: string
@@ -60,6 +61,11 @@ const articlesReducer = (
         isLoaded: true,
         error: action.error
       }
+    case RESET_STATE:
+      return {
+        ...state,
+        ...initialState
+      }
     default:
       return state
   }
@@ -93,6 +99,19 @@ export const getTopStories = (section: TopStoriesSection = 'home') => async (
   } else if (!response.status) {
     dispatch(setError(response.message))
   }
+}
+
+
+type ResetState = {
+  type: typeof RESET_STATE
+}
+const resetState = (): ResetState => ({
+  type: RESET_STATE
+})
+
+export const refreshArticles = () => async (dispatch: any) => {
+  dispatch(resetState())
+  dispatch(getTopStories())
 }
 
 export default articlesReducer
