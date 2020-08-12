@@ -40,8 +40,8 @@ const Homepage: React.FC<Props> = ({ isLoaded, articles, error }) => {
           {!isLoaded && <Preloader />}
 
           {articles &&
-            articles.map((item: any) => (
-              <GridItem key={item.title} link="#">
+            articles.map((item: Article, index: number) => (
+              <GridItem key={item.title} link={`/article/${index}`}>
                 {item.title}
               </GridItem>
             ))}

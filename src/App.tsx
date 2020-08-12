@@ -2,6 +2,8 @@ import React from 'react'
 import './App.css'
 import Homepage from './components/homepage'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { Switch, Route } from 'react-router-dom'
+import Article from './components/article'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,7 +18,14 @@ function App() {
 
   return (
     <div className={`app ${classes.background}`}>
-      <Homepage />
+      <Switch>
+        <Route exact path="/">
+          <Homepage />
+        </Route>
+        <Route exact path="/article/:id">
+          <Article />
+        </Route>
+      </Switch>
     </div>
   )
 }
