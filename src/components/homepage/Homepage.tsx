@@ -2,7 +2,6 @@ import React from 'react'
 import Layout from '../layout'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
-import Container from '@material-ui/core/Container'
 import { Article } from '../../redux/articles-reducer'
 import Preloader from '../common/preloader'
 import GridItem from './GridItem'
@@ -27,26 +26,24 @@ const Homepage: React.FC<Props> = ({ isLoaded, articles, error }) => {
 
   return (
     <Layout>
-      <Container maxWidth="md">
-        <Grid
-          container
-          spacing={3}
-          direction="column"
-          alignItems="stretch"
-          className={classes.grid}
-        >
-          {error && <GridItem>{error}</GridItem>}
+      <Grid
+        container
+        spacing={3}
+        direction="column"
+        alignItems="stretch"
+        className={classes.grid}
+      >
+        {error && <GridItem>{error}</GridItem>}
 
-          {!isLoaded && <Preloader />}
+        {!isLoaded && <Preloader />}
 
-          {articles &&
-            articles.map((item: Article, index: number) => (
-              <GridItem key={item.title} link={`/article/${index}`}>
-                {item.title}
-              </GridItem>
-            ))}
-        </Grid>
-      </Container>
+        {articles &&
+          articles.map((item: Article, index: number) => (
+            <GridItem key={item.title} link={`/article/${index}`}>
+              {item.title}
+            </GridItem>
+          ))}
+      </Grid>
     </Layout>
   )
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from '../header'
+import Container from '@material-ui/core/Container'
 
 interface Props {
   children?: React.ReactNode
@@ -8,7 +9,9 @@ interface Props {
 const Layout: React.FC<Props> = ({ children }) => (
   <div>
     <Header />
-    {children}
+    <Container maxWidth="md">
+      <>{children}</>
+    </Container>
   </div>
 )
 
