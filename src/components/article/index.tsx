@@ -1,23 +1,23 @@
 import React from 'react'
-import Layout from '../layout'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../redux/store'
+import Article from './Article'
 
 interface Props extends PropsFromRedux, RouteComponentProps<{ id: string }> {}
 interface State {
-  articleId: string
+  articleId: number
 }
 
 class ArticleContainer extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
-    this.state = { articleId: this.props.match.params.id }
+    this.state = { articleId: Number(this.props.match.params.id) }
   }
 
   render() {
-    if (this.props.isLoaded) {
-      return <Layout>Article {this.state.articleId}</Layout>
+    if (this.props.isLoaded && this.props.articles) {
+      return <Article article={this.props.articles[this.state.articleId]} />
     } else {
       this.props.history.push('/')
       return null
