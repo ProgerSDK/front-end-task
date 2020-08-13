@@ -1,4 +1,5 @@
-import { TopStoriesSection, articlesAPI } from '../api'
+import { articlesAPI } from '../api'
+import { TopStoriesSection } from '../api/types'
 
 const SET_ARTICLES = 'articles/SET_ARTICLES'
 const SET_ERROR = 'articles/SET_ERROR'
@@ -100,7 +101,6 @@ export const getTopStories = (section: TopStoriesSection = 'home') => async (
     dispatch(setError(response.message))
   }
 }
-
 
 type ResetState = {
   type: typeof RESET_STATE

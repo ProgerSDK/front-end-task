@@ -1,28 +1,6 @@
+import { TopStoriesSection } from './types'
 const url = 'https://api.nytimes.com/'
 const apiKey = process.env.REACT_APP_API_KEY_TIMES
-
-let TopStoriesSection:
-  | 'arts'
-  | 'automobiles'
-  | 'books'
-  | 'business'
-  | 'food'
-  | 'health'
-  | 'home'
-  | 'insider'
-  | 'magazine'
-  | 'movies'
-  | 'opinion'
-  | 'politics'
-  | 'science'
-  | 'sports'
-  | 'technology'
-  | 'travel'
-  | 'upshot'
-  | 'us'
-  | 'world'
-
-export type TopStoriesSection = typeof TopStoriesSection
 
 export const articlesAPI = {
   getTopStories: async (section: TopStoriesSection) => {
