@@ -15,9 +15,18 @@ class ArticleContainer extends React.Component<Props, State> {
     this.state = { articleId: Number(this.props.match.params.id) }
   }
 
+  onGoBack = () => {
+    this.props.history.goBack()
+  }
+
   render() {
     if (this.props.isLoaded && this.props.articles) {
-      return <Article article={this.props.articles[this.state.articleId]} />
+      return (
+        <Article
+          article={this.props.articles[this.state.articleId]}
+          onGoBack={this.onGoBack}
+        />
+      )
     } else {
       this.props.history.push('/')
       return null

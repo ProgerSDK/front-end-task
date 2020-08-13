@@ -12,6 +12,9 @@ import styles from './styles.module.css'
 import CardActions from '@material-ui/core/CardActions'
 import Button from '@material-ui/core/Button'
 import Chip from '@material-ui/core/Chip'
+import Tooltip from '@material-ui/core/Tooltip'
+import Fab from '@material-ui/core/Fab'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,20 +31,35 @@ const useStyles = makeStyles((theme: Theme) =>
         marginRight: theme.spacing(0.5),
         marginBottom: theme.spacing(2)
       }
+    },
+    fixed: {
+      position: 'fixed',
+      top: theme.spacing(10),
+      left: theme.spacing(4)
     }
   })
 )
 
 interface Props {
   article: ArticleType
+  onGoBack: () => void
 }
 
-const Article: React.FC<Props> = ({ article, ...props }) => {
+const Article: React.FC<Props> = ({ article, onGoBack, ...props }) => {
   const classes = useStyles()
 
   return (
     <Layout>
       <div className={classes.root}>
+      <Tooltip title="Go back" aria-label="go-back">
+        <Fab
+          color="primary"
+          className={classes.fixed}
+          onClick={onGoBack}
+        >
+          <ArrowBackIcon />
+        </Fab>
+      </Tooltip>
         <Card>
           <CardMedia
             className={styles.media}
@@ -72,7 +90,14 @@ const Article: React.FC<Props> = ({ article, ...props }) => {
           </CardContent>
           <Divider />
           <CardActions>
-            <Button color="default">Learn More</Button>
+            <Button
+              color="default"
+              href={article.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn More
+            </Button>
           </CardActions>
         </Card>
       </div>
