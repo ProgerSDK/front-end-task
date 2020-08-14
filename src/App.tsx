@@ -4,6 +4,9 @@ import Homepage from './components/homepage'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Switch, Route } from 'react-router-dom'
 import Article from './components/article'
+import Register from './components/register'
+import Login from './components/login'
+import * as ROUTES from './constants/routes'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,11 +22,17 @@ function App() {
   return (
     <div className={`app ${classes.background}`}>
       <Switch>
-        <Route exact path="/">
+        <Route exact path={ROUTES.HOMEPAGE}>
           <Homepage />
         </Route>
-        <Route exact path="/article/:id">
+        <Route exact path={ROUTES.ARTICLE}>
           <Article />
+        </Route>
+        <Route exact path={ROUTES.SIGN_UP}>
+          <Register />
+        </Route>
+        <Route exact path={ROUTES.SIGN_IN}>
+          <Login />
         </Route>
       </Switch>
     </div>

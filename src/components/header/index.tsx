@@ -3,7 +3,9 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
+import LoginMenu from './LoginMenu'
+import { Link } from 'react-router-dom'
+import * as ROUTES from '../../constants/routes'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,13 +25,13 @@ const Header = () => {
   const classes = useStyles()
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} >
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            NY Times
+            <Link to={ROUTES.HOMEPAGE}>NY Times</Link>
           </Typography>
-          <Button color="inherit">Login</Button>
+          <LoginMenu />
         </Toolbar>
       </AppBar>
     </div>
