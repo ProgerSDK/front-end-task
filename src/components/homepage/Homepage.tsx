@@ -11,10 +11,6 @@ import RefreshIcon from '@material-ui/icons/Refresh'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    grid: {
-      paddingTop: theme.spacing(3),
-      paddingBottom: theme.spacing(3)
-    },
     fixed: {
       position: 'fixed',
       bottom: theme.spacing(4),
@@ -40,13 +36,7 @@ const Homepage: React.FC<Props> = ({
 
   return (
     <Layout>
-      <Grid
-        container
-        spacing={3}
-        direction="column"
-        alignItems="stretch"
-        className={classes.grid}
-      >
+      <Grid container spacing={3} direction="column" alignItems="stretch">
         {error && <GridItem>{error}</GridItem>}
 
         {!isLoaded && <Preloader />}
