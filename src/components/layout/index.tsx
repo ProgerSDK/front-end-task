@@ -14,15 +14,16 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
   children?: React.ReactNode
+  maxWidth?:  "md" | "xs" | "sm" | "lg" | "xl"
 }
 
-const Layout: React.FC<Props> = ({ children }) => {
+const Layout: React.FC<Props> = ({ children, maxWidth }) => {
   const classes = useStyles()
 
   return (
     <div>
       <Header />
-      <Container maxWidth="md" className={classes.paddings}>
+      <Container maxWidth={maxWidth ? maxWidth : 'md'} className={classes.paddings}>
         <>{children}</>
       </Container>
     </div>
