@@ -40,7 +40,7 @@ const initialValues: FormValues = {
 
 interface Props {
   title: string
-  handleSubmit: (values: FormValues) => void
+  handleSubmit: (values: FormValues, actions: any) => void
   validationSchema: Yup.ObjectSchema
   linkTo: string
   linkMessage: string
@@ -60,7 +60,7 @@ const Auth: React.FC<Props> = (props) => {
           onSubmit={props.handleSubmit}
           validationSchema={props.validationSchema}
         >
-          {({ errors, touched }) => {
+          {({ errors, touched, isSubmitting }) => {
             return (
               <Form className={classes.form}>
                 <FormikField
@@ -90,6 +90,7 @@ const Auth: React.FC<Props> = (props) => {
                   variant="contained"
                   color="primary"
                   className={classes.submit}
+                  disabled={isSubmitting}
                 >
                   {props.title}
                 </Button>
