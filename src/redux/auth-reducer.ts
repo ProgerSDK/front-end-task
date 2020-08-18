@@ -1,9 +1,11 @@
 import { firebaseAPI } from '../api'
 
-const TOGGLE_SIGN_UP_SUCCESS = 'auth/TOGGLE_SIGN_UP_SUCCESS'
+const SET_IS_AUTH = 'auth/SET_IS_AUTH'
+const SET_USER_CREDENTIAL = 'auth/SET_USER_CREDENTIAL'
 
 let initialState = {
-  isAuth: false
+  isAuth: false,
+  userCredential: null as firebase.auth.UserCredential | null
 }
 export type InitialStateType = typeof initialState
 
@@ -18,11 +20,44 @@ export const signUp = (email: string, password: string) => async (
   dispatch: any
 ) => {
   try {
-    let response = await firebaseAPI.createUserWithEmailAndPassword(
-      email,
-      password
-    )
-    dispatch(toggleSignUpSuccess(true))
+    await firebaseAPI.createUserWithEmailAndPassword(email, password)
+
+    return { success: true }
+  } catch (error) {
+    let errorCode = error.code
+    let errorMessage = error.message
+
+    return { success: false, errorCode, errorMessage }
+  }
+}
+
+type SetIsAuth = {
+  type: typeof SET_IS_AUTH
+  isAuth: boolean
+}
+const setIsAuth = (isAuth: boolean): SetIsAuth => ({
+  type: SET_IS_AUTH,
+  isAuth
+})
+
+type SetUserCredential = {
+  type: typeof SET_USER_CREDENTIAL
+  userCredential: firebase.auth.UserCredential
+}
+const setUserCredential = (
+  userCredential: firebase.auth.UserCredential
+): SetUserCredential => ({
+  type: SET_USER_CREDENTIAL,
+  userCredential
+})
+
+export const signIn = (email: string, password: string) => async (
+  dispatch: any
+) => {
+  try {
+    let response = await firebaseAPI.signInWithEmailAndPassword(email, password)
+    dispatch(setUserCredential(response))
+    dispatch(setIsAuth(true))
 
     console.log(response)
     return { success: true }
@@ -33,14 +68,5 @@ export const signUp = (email: string, password: string) => async (
     return { success: false, errorCode, errorMessage }
   }
 }
-
-type ToggleSignUpSuccess = {
-  type: typeof TOGGLE_SIGN_UP_SUCCESS
-  flag: boolean
-}
-export const toggleSignUpSuccess = (flag: boolean): ToggleSignUpSuccess => ({
-  type: TOGGLE_SIGN_UP_SUCCESS,
-  flag
-})
 
 export default authReducer
