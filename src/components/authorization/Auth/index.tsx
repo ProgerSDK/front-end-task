@@ -1,14 +1,13 @@
 import React from 'react'
-import Layout from '../layout'
+import Layout from '../../layout'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import { Link } from 'react-router-dom'
-import * as ROUTES from '../../constants/routes'
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
-import FormikField from '../common/FormikField'
+import FormikField from '../../common/FormikField'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-interface FormValues {
+export interface FormValues {
   email: string
   password: string
 }
@@ -39,28 +38,27 @@ const initialValues: FormValues = {
   password: ''
 }
 
-const SigninSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Required'),
-  password: Yup.string().required('Required')
-})
+interface Props {
+  title: string
+  handleSubmit: (values: FormValues) => void
+  validationSchema: Yup.ObjectSchema
+  linkTo: string
+  linkMessage: string
+}
 
-const Login = () => {
+const Auth: React.FC<Props> = (props) => {
   const classes = useStyles()
-
-  const handleSubmit = (values: FormValues): void => {
-    alert(JSON.stringify(values))
-  }
 
   return (
     <Layout maxWidth="xs">
       <Paper elevation={3} className={classes.paper}>
         <Typography component="h1" variant="h5">
-          Sign In
+          {props.title}
         </Typography>
         <Formik
           initialValues={initialValues}
-          onSubmit={handleSubmit}
-          validationSchema={SigninSchema}
+          onSubmit={props.handleSubmit}
+          validationSchema={props.validationSchema}
         >
           {({ errors, touched }) => {
             return (
@@ -93,9 +91,9 @@ const Login = () => {
                   color="primary"
                   className={classes.submit}
                 >
-                  Sign in
+                  {props.title}
                 </Button>
-                <Link to={ROUTES.SIGN_UP}>Don't have an account? Sign Up</Link>
+                <Link to={props.linkTo}>{props.linkMessage}</Link>
               </Form>
             )
           }}
@@ -105,4 +103,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Auth

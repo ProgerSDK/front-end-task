@@ -4,8 +4,8 @@ import Homepage from './components/homepage'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Switch, Route } from 'react-router-dom'
 import Article from './components/article'
-import Register from './components/register'
-import Login from './components/login'
+import Register from './components/authorization/Register'
+import Login from './components/authorization/Login'
 import * as ROUTES from './constants/routes'
 
 const useStyles = makeStyles((theme: Theme) =>
