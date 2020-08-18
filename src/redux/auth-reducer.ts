@@ -9,27 +9,27 @@ let initialState = {
 }
 export type InitialStateType = typeof initialState
 
-const authReducer = (state = initialState, action: any): InitialStateType => {
+const authReducer = (
+  state = initialState,
+  action: ActionsTypes
+): InitialStateType => {
   switch (action.type) {
+    case SET_USER_CREDENTIAL:
+      return {
+        ...state,
+        userCredential: action.userCredential
+      }
+    case SET_IS_AUTH:
+      return {
+        ...state,
+        isAuth: action.isAuth
+      }
     default:
       return state
   }
 }
 
-export const signUp = (email: string, password: string) => async (
-  dispatch: any
-) => {
-  try {
-    await firebaseAPI.createUserWithEmailAndPassword(email, password)
-
-    return { success: true }
-  } catch (error) {
-    let errorCode = error.code
-    let errorMessage = error.message
-
-    return { success: false, errorCode, errorMessage }
-  }
-}
+type ActionsTypes = SetIsAuth | SetUserCredential
 
 type SetIsAuth = {
   type: typeof SET_IS_AUTH
@@ -50,6 +50,21 @@ const setUserCredential = (
   type: SET_USER_CREDENTIAL,
   userCredential
 })
+
+export const signUp = (email: string, password: string) => async (
+  dispatch: any
+) => {
+  try {
+    await firebaseAPI.createUserWithEmailAndPassword(email, password)
+
+    return { success: true }
+  } catch (error) {
+    let errorCode = error.code
+    let errorMessage = error.message
+
+    return { success: false, errorCode, errorMessage }
+  }
+}
 
 export const signIn = (email: string, password: string) => async (
   dispatch: any
