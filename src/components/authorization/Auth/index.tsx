@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import { Link } from 'react-router-dom'
-import { Formik, Form } from 'formik'
+import { Formik, Form, FormikHelpers } from 'formik'
 import * as Yup from 'yup'
 import FormikField from '../../common/FormikField'
 
@@ -40,7 +40,10 @@ const initialValues: FormValues = {
 
 interface Props {
   title: string
-  handleSubmit: (values: FormValues, actions: any) => void
+  handleSubmit: (
+    values: FormValues,
+    formikHelpers: FormikHelpers<FormValues>
+  ) => void
   validationSchema: Yup.ObjectSchema
   linkTo: string
   linkMessage: string

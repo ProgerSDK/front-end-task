@@ -7,6 +7,7 @@ import { RootState } from '../../../redux/store'
 import { signUp } from '../../../redux/auth-reducer'
 import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert from '@material-ui/lab/Alert'
+import { FormikHelpers } from 'formik'
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
@@ -24,7 +25,7 @@ const Register: React.FC<Props> = ({ signUp, ...props }) => {
 
   const handleSubmit = async (
     values: FormValues,
-    actions: any
+    formikHelpers: FormikHelpers<FormValues>
   ): Promise<void> => {
     let result = await signUp(values.email, values.password)
     if (result.success) {
@@ -35,8 +36,8 @@ const Register: React.FC<Props> = ({ signUp, ...props }) => {
       setSeverity('error')
     }
     setOpen(true)
-    actions.setSubmitting(false)
-    actions.resetForm()
+    formikHelpers.setSubmitting(false)
+    formikHelpers.resetForm()
   }
 
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
