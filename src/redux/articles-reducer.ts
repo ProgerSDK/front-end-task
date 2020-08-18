@@ -47,7 +47,7 @@ export type InitialStateType = typeof initialState
 
 const articlesReducer = (
   state = initialState,
-  action: any
+  action: ActionsTypes
 ): InitialStateType => {
   switch (action.type) {
     case SET_ARTICLES:
@@ -72,6 +72,8 @@ const articlesReducer = (
   }
 }
 
+type ActionsTypes = SetArticles | SetError | ResetState
+
 type SetArticles = {
   type: typeof SET_ARTICLES
   articles: Array<Article>
@@ -90,6 +92,13 @@ export const setError = (error: string): SetError => ({
   error
 })
 
+type ResetState = {
+  type: typeof RESET_STATE
+}
+const resetState = (): ResetState => ({
+  type: RESET_STATE
+})
+
 export const getTopStories = (section: TopStoriesSection = 'home') => async (
   dispatch: any
 ) => {
@@ -101,13 +110,6 @@ export const getTopStories = (section: TopStoriesSection = 'home') => async (
     dispatch(setError(response.message))
   }
 }
-
-type ResetState = {
-  type: typeof RESET_STATE
-}
-const resetState = (): ResetState => ({
-  type: RESET_STATE
-})
 
 export const refreshArticles = () => async (dispatch: any) => {
   dispatch(resetState())

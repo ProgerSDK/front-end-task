@@ -56,12 +56,10 @@ export const signUp = (email: string, password: string) => async (
 ) => {
   try {
     await firebaseAPI.createUserWithEmailAndPassword(email, password)
-
     return { success: true }
   } catch (error) {
     let errorCode = error.code
     let errorMessage = error.message
-
     return { success: false, errorCode, errorMessage }
   }
 }
@@ -73,13 +71,10 @@ export const signIn = (email: string, password: string) => async (
     let response = await firebaseAPI.signInWithEmailAndPassword(email, password)
     dispatch(setUserCredential(response))
     dispatch(setIsAuth(true))
-
-    console.log(response)
     return { success: true }
   } catch (error) {
     let errorCode = error.code
     let errorMessage = error.message
-
     return { success: false, errorCode, errorMessage }
   }
 }
