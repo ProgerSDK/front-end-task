@@ -6,6 +6,10 @@ import Typography from '@material-ui/core/Typography'
 import LoginMenu from './LoginMenu'
 import { Link } from 'react-router-dom'
 import * as ROUTES from '../../constants/routes'
+import { RootState } from '../../redux/store'
+import { connect, ConnectedProps } from 'react-redux'
+import LogoutMenu from './LogoutMenu'
+import { signOut } from '../../redux/auth-reducer'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,21 +25,40 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const Header = () => {
+interface Props extends PropsFromRedux {}
+
+const Header: React.FC<Props> = ({ isAuth, username, signOut, ...props }) => {
   const classes = useStyles()
 
+  const doSignOut = () => {
+    let response = signOut()
+    console.log(response)
+  }
+
   return (
-    <div className={classes.root} >
+    <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             <Link to={ROUTES.HOMEPAGE}>NY Times</Link>
           </Typography>
-          <LoginMenu />
+          {!isAuth && <LoginMenu />}
+          {isAuth && <LogoutMenu username={username} doSignOut={doSignOut} />}
         </Toolbar>
       </AppBar>
     </div>
   )
 }
 
-export default Header
+let mapState = (state: RootState) => {
+  return {
+    isAuth: state.auth.isAuth,
+    username: state.auth.username
+  }
+}
+
+const connector = connect(mapState, { signOut })
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default connector(Header)
