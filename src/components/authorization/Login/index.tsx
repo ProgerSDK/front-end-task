@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import * as ROUTES from '../../../constants/routes'
 import * as Yup from 'yup'
-import Auth, { FormValues } from '../Auth'
-import { signIn } from '../../../redux/auth-reducer'
+import AuthForm, { FormValues } from '../AuthForm'
 import { RootState } from '../../../redux/store'
 import { connect, ConnectedProps } from 'react-redux'
 import Snackbar from '@material-ui/core/Snackbar'
 import { FormikHelpers } from 'formik'
 import MuiAlert from '@material-ui/lab/Alert'
+import { signIn } from '../../../utils/auth'
 
 const SigninSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
@@ -16,7 +16,7 @@ const SigninSchema = Yup.object().shape({
 
 interface Props extends PropsFromRedux {}
 
-const Login: React.FC<Props> = ({ signIn, ...props }) => {
+const Login: React.FC<Props> = ({ ...props }) => {
   const [open, setOpen] = useState(false)
   const [severity, setSeverity] = useState('' as 'success' | 'error')
   const [message, setMessage] = useState('')
@@ -48,7 +48,7 @@ const Login: React.FC<Props> = ({ signIn, ...props }) => {
 
   return (
     <>
-      <Auth
+      <AuthForm
         title="Sign In"
         handleSubmit={handleSubmit}
         validationSchema={SigninSchema}
@@ -83,7 +83,7 @@ let mapState = (state: RootState) => {
   }
 }
 
-const connector = connect(mapState, { signIn })
+const connector = connect(mapState, {})
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 

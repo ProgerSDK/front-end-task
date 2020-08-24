@@ -20,5 +20,11 @@ export const firebaseAPI = {
   signInWithEmailAndPassword: (email: string, password: string) =>
     auth.signInWithEmailAndPassword(email, password),
 
-  signOut: () => auth.signOut()
+  signOut: () => auth.signOut(),
+
+  onAuthStateChanged: (
+    nextOrObserver: firebase.Observer<any> | ((a: firebase.User | null) => any),
+    error?: (a: firebase.auth.Error) => any,
+    completed?: firebase.Unsubscribe
+  ) => auth.onAuthStateChanged(nextOrObserver, error, completed)
 }

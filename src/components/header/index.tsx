@@ -9,7 +9,7 @@ import * as ROUTES from '../../constants/routes'
 import { RootState } from '../../redux/store'
 import { connect, ConnectedProps } from 'react-redux'
 import LogoutMenu from './LogoutMenu'
-import { signOut } from '../../redux/auth-reducer'
+import { signOut } from '../../utils/auth'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props extends PropsFromRedux {}
 
-const Header: React.FC<Props> = ({ isAuth, username, signOut, ...props }) => {
+const Header: React.FC<Props> = ({ isAuth, username, ...props }) => {
   const classes = useStyles()
 
   const doSignOut = () => {
@@ -57,7 +57,7 @@ let mapState = (state: RootState) => {
   }
 }
 
-const connector = connect(mapState, { signOut })
+const connector = connect(mapState, {})
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 

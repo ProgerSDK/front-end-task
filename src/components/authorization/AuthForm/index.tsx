@@ -49,7 +49,7 @@ interface Props {
   linkMessage: string
 }
 
-const Auth: React.FC<Props> = (props) => {
+const AuthForm: React.FC<Props> = (props) => {
   const classes = useStyles()
 
   return (
@@ -107,4 +107,4 @@ const Auth: React.FC<Props> = (props) => {
   )
 }
 
-export default Auth
+export default AuthForm

@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import * as ROUTES from '../../../constants/routes'
 import * as Yup from 'yup'
-import Auth, { FormValues } from '../Auth'
+import AuthForm, { FormValues } from '../AuthForm'
 import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../../redux/store'
-import { signUp } from '../../../redux/auth-reducer'
 import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert from '@material-ui/lab/Alert'
 import { FormikHelpers } from 'formik'
+import { signUp } from '../../../utils/auth'
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
@@ -18,7 +18,7 @@ const SignupSchema = Yup.object().shape({
 
 interface Props extends PropsFromRedux {}
 
-const Register: React.FC<Props> = ({ signUp, ...props }) => {
+const Register: React.FC<Props> = ({ ...props }) => {
   const [open, setOpen] = useState(false)
   const [severity, setSeverity] = useState('' as 'success' | 'error')
   const [message, setMessage] = useState('')
@@ -50,7 +50,7 @@ const Register: React.FC<Props> = ({ signUp, ...props }) => {
 
   return (
     <>
-      <Auth
+      <AuthForm
         title="Sign Up"
         handleSubmit={handleSubmit}
         validationSchema={SignupSchema}
@@ -85,7 +85,7 @@ let mapState = (state: RootState) => {
   }
 }
 
-const connector = connect(mapState, { signUp })
+const connector = connect(mapState, {})
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
