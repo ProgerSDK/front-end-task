@@ -8,6 +8,7 @@ import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert from '@material-ui/lab/Alert'
 import { FormikHelpers } from 'formik'
 import { signUp } from '../../../utils/auth'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
@@ -16,9 +17,9 @@ const SignupSchema = Yup.object().shape({
     .required('Required')
 })
 
-interface Props extends PropsFromRedux {}
+interface Props extends PropsFromRedux, RouteComponentProps {}
 
-const Register: React.FC<Props> = ({ ...props }) => {
+const Register: React.FC<Props> = ({ history, ...props }) => {
   const [open, setOpen] = useState(false)
   const [severity, setSeverity] = useState('' as 'success' | 'error')
   const [message, setMessage] = useState('')
@@ -29,8 +30,11 @@ const Register: React.FC<Props> = ({ ...props }) => {
   ): Promise<void> => {
     let result = await signUp(values.email, values.password)
     if (result.success) {
-      setMessage('User account created successfully')
+      setMessage(
+        'User account created successfully. You will be redirected to the main page.'
+      )
       setSeverity('success')
+      setTimeout(() => history.push(ROUTES.HOMEPAGE), 3000)
     } else {
       setMessage(result.errorMessage)
       setSeverity('error')
@@ -89,4 +93,4 @@ const connector = connect(mapState, {})
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-export default connector(Register)
+export default withRouter(connector(Register))
