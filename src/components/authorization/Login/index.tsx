@@ -2,24 +2,20 @@ import React, { useState } from 'react'
 import * as ROUTES from '../../../constants/routes'
 import * as Yup from 'yup'
 import AuthForm, { FormValues } from '../AuthForm'
-import { RootState } from '../../../redux/store'
-import { connect, ConnectedProps } from 'react-redux'
 import Snackbar from '@material-ui/core/Snackbar'
 import { FormikHelpers } from 'formik'
 import MuiAlert from '@material-ui/lab/Alert'
 import { signIn } from '../../../utils/auth'
-import { withRouter, RouteComponentProps } from 'react-router-dom'
+import withAuthorization from '../../../hocs/withAuthorization'
+import { AuthUser } from '../../../typings'
 
 const SigninSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
   password: Yup.string().required('Required')
 })
 
-interface Props extends PropsFromRedux, RouteComponentProps {}
-
-const Login: React.FC<Props> = ({ history, isAuth, ...props }) => {
+const Login = () => {
   const [open, setOpen] = useState(false)
-  const [severity, setSeverity] = useState('' as 'success' | 'error')
   const [message, setMessage] = useState('')
 
   const handleSubmit = async (
@@ -27,16 +23,10 @@ const Login: React.FC<Props> = ({ history, isAuth, ...props }) => {
     formikHelpers: FormikHelpers<FormValues>
   ): Promise<void> => {
     let result = await signIn(values.email, values.password)
-    if (result.success) {
-      setMessage('Logged in success. You will be redirected to the main page.')
-      setSeverity('success')
-      formikHelpers.resetForm()
-      setTimeout(() => history.push(ROUTES.HOMEPAGE), 3000)
-    } else {
+    if (!result.success) {
       setMessage(result.errorMessage)
-      setSeverity('error')
+      setOpen(true)
     }
-    setOpen(true)
     formikHelpers.setSubmitting(false)
   }
 
@@ -69,7 +59,7 @@ const Login: React.FC<Props> = ({ history, isAuth, ...props }) => {
         <MuiAlert
           elevation={6}
           variant="filled"
-          severity={severity}
+          severity={'error'}
           onClose={handleClose}
         >
           {message}
@@ -79,14 +69,6 @@ const Login: React.FC<Props> = ({ history, isAuth, ...props }) => {
   )
 }
 
-let mapState = (state: RootState) => {
-  return {
-    isAuth: state.auth.isAuth
-  }
-}
+const condition = (authUser: AuthUser) => !!authUser
 
-const connector = connect(mapState, {})
-
-type PropsFromRedux = ConnectedProps<typeof connector>
-
-export default withRouter(connector(Login))
+export default withAuthorization(condition)(Login)

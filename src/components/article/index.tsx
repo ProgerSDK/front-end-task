@@ -3,6 +3,8 @@ import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../redux/store'
 import Article from './Article'
+import withAuthorization from '../../hocs/withAuthorization'
+import * as ROUTES from '../../constants/routes'
 
 interface Props extends PropsFromRedux, RouteComponentProps<{ id: string }> {}
 interface State {
@@ -28,7 +30,7 @@ class ArticleContainer extends React.Component<Props, State> {
         />
       )
     } else {
-      this.props.history.push('/')
+      this.props.history.push(ROUTES.HOMEPAGE)
       return null
     }
   }
@@ -45,4 +47,9 @@ const connector = connect(mapState, {})
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-export default withRouter(connector(ArticleContainer))
+const condition = (authUser: firebase.User | null) => !authUser
+
+export default withAuthorization(
+  condition,
+  ROUTES.SIGN_IN
+)(withRouter(connector(ArticleContainer)))
