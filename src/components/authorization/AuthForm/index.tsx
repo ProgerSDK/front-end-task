@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from '../../layout'
+import Layout from '../../Layout'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
