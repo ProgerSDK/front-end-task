@@ -3,10 +3,12 @@ import thunk from 'redux-thunk'
 import articlesReducer from './articles-reducer'
 import logger from 'redux-logger'
 import authReducer from './auth-reducer'
+import appReducer from './app-reducer'
 
 const rootReducer = combineReducers({
-  articles: articlesReducer,
-  auth: authReducer
+  app: appReducer,
+  auth: authReducer,
+  articles: articlesReducer
 })
 
 export type RootState = ReturnType<typeof rootReducer>

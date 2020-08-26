@@ -11,6 +11,8 @@ import { firebaseAPI } from './api'
 import { RootState } from './redux/store'
 import { connect, ConnectedProps } from 'react-redux'
 import { verifyAuth } from './redux/auth-reducer'
+import Preloader from './components/common/Preloader'
+import { initializeApp } from './redux/app-reducer'
 
 const styles = (theme: Theme) => ({
   background: {
@@ -30,6 +32,10 @@ class App extends React.Component<Props> {
   componentDidMount() {
     this.listener = firebaseAPI.onAuthStateChanged((authUser) => {
       this.props.verifyAuth(authUser)
+
+      if (!this.props.initialized) {
+        this.props.initializeApp()
+      }
     })
   }
 
@@ -39,6 +45,8 @@ class App extends React.Component<Props> {
 
   render() {
     const { classes } = this.props
+
+    if (!this.props.initialized) return <Preloader />
 
     return (
       <div className={`app ${classes.background}`}>
@@ -61,9 +69,11 @@ class App extends React.Component<Props> {
   }
 }
 
-let mapState = (state: RootState) => ({})
+let mapState = (state: RootState) => ({
+  initialized: state.app.initialized
+})
 
-const connector = connect(mapState, { verifyAuth })
+const connector = connect(mapState, { verifyAuth, initializeApp })
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
