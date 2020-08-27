@@ -10,6 +10,11 @@ import { RootState } from '../../redux/store'
 import { connect, ConnectedProps } from 'react-redux'
 import LogoutMenu from './LogoutMenu'
 import { signOut } from '../../utils/auth'
+import Tooltip from '@material-ui/core/Tooltip'
+import IconButton from '@material-ui/core/IconButton'
+import Brightness4Icon from '@material-ui/icons/Brightness4'
+import Brightness7Icon from '@material-ui/icons/Brightness7'
+import { toggleTheme } from '../../redux/app-reducer'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,12 +32,22 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props extends PropsFromRedux {}
 
-const Header: React.FC<Props> = ({ isAuth, username, ...props }) => {
+const Header: React.FC<Props> = ({
+  isAuth,
+  username,
+  theme,
+  toggleTheme,
+  ...props
+}) => {
   const classes = useStyles()
 
   const doSignOut = () => {
     let response = signOut()
     console.log(response)
+  }
+
+  const doToggleTheme = () => {
+    toggleTheme()
   }
 
   return (
@@ -42,6 +57,20 @@ const Header: React.FC<Props> = ({ isAuth, username, ...props }) => {
           <Typography variant="h6" className={classes.title}>
             <Link to={ROUTES.HOMEPAGE}>NY Times</Link>
           </Typography>
+          <Tooltip
+            title="Toggle light/dark theme"
+            aria-label="toggle light/dark theme"
+          >
+            <IconButton
+              aria-label="toggle light/dark theme"
+              onClick={doToggleTheme}
+              color="inherit"
+            >
+              {theme === 'light' && <Brightness4Icon />}
+              {theme === 'dark' && <Brightness7Icon />}
+            </IconButton>
+          </Tooltip>
+
           {!isAuth && <LoginMenu />}
           {isAuth && <LogoutMenu username={username} doSignOut={doSignOut} />}
         </Toolbar>
@@ -53,11 +82,12 @@ const Header: React.FC<Props> = ({ isAuth, username, ...props }) => {
 let mapState = (state: RootState) => {
   return {
     isAuth: state.auth.isAuth,
-    username: state.auth.username
+    username: state.auth.username,
+    theme: state.app.theme
   }
 }
 
-const connector = connect(mapState, {})
+const connector = connect(mapState, { toggleTheme })
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 

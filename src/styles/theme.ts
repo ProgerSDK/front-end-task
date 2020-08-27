@@ -1,9 +1,18 @@
-import { createMuiTheme } from '@material-ui/core/styles'
+import { PaletteType } from '@material-ui/core'
 
-const theme = createMuiTheme({
+export const light = {
   palette: {
-    type: 'dark'
+    type: 'light' as PaletteType,
+    primary: {
+      light: '#a6d4fa',
+      main: '#90caf9',
+      dark: '#648dae'
+    }
   }
-})
+}
 
-export default theme
+export const dark = {
+  palette: {
+    type: 'dark' as PaletteType
+  }
+}

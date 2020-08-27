@@ -13,6 +13,7 @@ import { connect, ConnectedProps } from 'react-redux'
 import { verifyAuth } from './redux/auth-reducer'
 import Preloader from './components/common/Preloader'
 import { initializeApp } from './redux/app-reducer'
+import withThemeProvider from './hocs/withThemeProvider'
 
 const styles = (theme: Theme) => ({
   background: {
@@ -77,4 +78,4 @@ const connector = connect(mapState, { verifyAuth, initializeApp })
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-export default withStyles(styles)(connector(App))
+export default withThemeProvider(withStyles(styles)(connector(App)))
