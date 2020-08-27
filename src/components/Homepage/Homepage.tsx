@@ -23,6 +23,7 @@ interface Props {
   articles: Array<Article> | null
   isLoaded: boolean
   error: null | string
+  isAuth: boolean
   onRefreshArticles: () => void
 }
 
@@ -30,6 +31,7 @@ const Homepage: React.FC<Props> = ({
   isLoaded,
   articles,
   error,
+  isAuth,
   onRefreshArticles
 }) => {
   const classes = useStyles()
@@ -43,7 +45,7 @@ const Homepage: React.FC<Props> = ({
 
         {articles &&
           articles.map((item: Article, index: number) => (
-            <GridItem key={item.title} link={`/article/${index}`}>
+            <GridItem key={item.title} link={`/article/${index}`} isAuth={isAuth}>
               {item.title}
             </GridItem>
           ))}

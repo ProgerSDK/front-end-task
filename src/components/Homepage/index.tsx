@@ -24,6 +24,7 @@ class HomepageContainer extends React.Component<Props> {
         articles={this.props.articles}
         error={this.props.error}
         onRefreshArticles={this.onRefreshArticles}
+        isAuth={this.props.isAuth}
       />
     )
   }
@@ -33,7 +34,8 @@ let mapState = (state: RootState) => {
   return {
     isLoaded: state.articles.isLoaded,
     articles: state.articles.items,
-    error: state.articles.error
+    error: state.articles.error,
+    isAuth: state.auth.isAuth
   }
 }
 
