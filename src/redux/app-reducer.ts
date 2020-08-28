@@ -1,4 +1,4 @@
-import { RootState } from './store'
+import { RootState } from './types'
 import { PaletteType } from '@material-ui/core'
 
 const INITIALIZED_SUCCESS = 'app/INITIALIZED_SUCCESS'

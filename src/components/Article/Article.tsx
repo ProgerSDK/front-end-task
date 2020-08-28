@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from '../Layout'
-import { Article as ArticleType } from '../../redux/articles-reducer'
+import { Article as ArticleType } from '../../typings'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardMedia from '@material-ui/core/CardMedia'

@@ -1,7 +1,7 @@
 import React from 'react'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import { ConnectedProps, connect } from 'react-redux'
-import { RootState } from '../redux/store'
+import { RootState } from '../typings'
 import { light, dark } from '../styles/theme'
 
 const withThemeProvider = <BaseProps extends {}>(

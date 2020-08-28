@@ -5,16 +5,12 @@ import logger from 'redux-logger'
 import authReducer from './auth-reducer'
 import appReducer from './app-reducer'
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   app: appReducer,
   auth: authReducer,
   articles: articlesReducer
 })
 
-export type RootState = ReturnType<typeof rootReducer>
-
-let store = createStore(rootReducer, applyMiddleware(thunk, logger))
-
-export type AppDispatch = typeof store.dispatch
+const store = createStore(rootReducer, applyMiddleware(thunk, logger))
 
 export default store

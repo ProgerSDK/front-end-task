@@ -2,7 +2,7 @@ import React from 'react'
 import Layout from '../Layout'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
-import { Article } from '../../redux/articles-reducer'
+import { Article } from '../../typings'
 import Preloader from '../common/Preloader'
 import GridItem from './GridItem'
 import Tooltip from '@material-ui/core/Tooltip'
@@ -45,7 +45,11 @@ const Homepage: React.FC<Props> = ({
 
         {articles &&
           articles.map((item: Article, index: number) => (
-            <GridItem key={item.title} link={`/article/${index}`} isAuth={isAuth}>
+            <GridItem
+              key={item.title}
+              link={`/article/${index}`}
+              isAuth={isAuth}
+            >
               {item.title}
             </GridItem>
           ))}

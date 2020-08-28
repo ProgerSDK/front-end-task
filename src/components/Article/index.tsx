@@ -1,7 +1,7 @@
 import React from 'react'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { connect, ConnectedProps } from 'react-redux'
-import { RootState } from '../../redux/store'
+import { RootState } from '../../typings'
 import Article from './Article'
 import withAuthorization from '../../hocs/withAuthorization'
 import * as ROUTES from '../../constants/routes'

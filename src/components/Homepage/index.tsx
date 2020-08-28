@@ -1,7 +1,7 @@
 import React from 'react'
 import Homepage from './Homepage'
 import { connect, ConnectedProps } from 'react-redux'
-import { RootState } from '../../redux/store'
+import { RootState } from '../../typings'
 import { getTopStories, refreshArticles } from '../../redux/articles-reducer'
 
 interface Props extends PropsFromRedux {}
