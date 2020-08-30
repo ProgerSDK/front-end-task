@@ -1,7 +1,7 @@
 import React from 'react'
 import { firebaseAPI } from '../api'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
-import * as ROUTES from '../constants/routes'
+import ROUTES from '../constants/routes'
 import { AuthUser } from '../typings'
 
 const withAuthorization = (

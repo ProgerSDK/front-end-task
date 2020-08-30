@@ -4,7 +4,7 @@ import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../../typings'
 import Article from './Article'
 import withAuthorization from '../../hocs/withAuthorization'
-import * as ROUTES from '../../constants/routes'
+import ROUTES from '../../constants/routes'
 
 interface Props extends PropsFromRedux, RouteComponentProps<{ id: string }> {}
 interface State {

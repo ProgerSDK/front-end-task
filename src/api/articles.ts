@@ -1,8 +1,10 @@
 import { TopStoriesSection } from './types'
-const url = 'https://api.nytimes.com/'
-const apiKey = process.env.REACT_APP_API_KEY_TIMES
+import { TIMES_URL_API, TIMES_API_KEY } from '../config'
 
-export const articlesAPI = {
+const url = TIMES_URL_API
+const apiKey = TIMES_API_KEY
+
+const articlesAPI = {
   getTopStories: async (section: TopStoriesSection) => {
     let response = await fetch(
       `${url}svc/topstories/v2/${section}.json?api-key=${apiKey}`
@@ -23,3 +25,5 @@ export const articlesAPI = {
     return result
   }
 }
+
+export default articlesAPI
