@@ -9,7 +9,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogActions from '@material-ui/core/DialogActions'
 import Button from '@material-ui/core/Button'
 import DialogContentText from '@material-ui/core/DialogContentText'
-import * as ROUTES from '../../constants/routes'
+import ROUTES from '../../constants/routes'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -4,7 +4,7 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import { Link } from 'react-router-dom'
 
-import * as ROUTES from '../../constants/routes'
+import ROUTES from '../../constants/routes'
 
 const LoginMenu = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)

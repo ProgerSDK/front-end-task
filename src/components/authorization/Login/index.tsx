@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import * as ROUTES from '../../../constants/routes'
+import ROUTES from '../../../constants/routes'
 import * as Yup from 'yup'
 import AuthForm, { FormValues } from '../AuthForm'
 import Snackbar from '@material-ui/core/Snackbar'

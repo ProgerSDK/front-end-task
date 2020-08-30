@@ -1,4 +1,4 @@
-import { articlesAPI } from './articles'
-import { firebaseAPI } from './firebase'
+import articlesAPI from './articles'
+import firebaseAPI from './firebase'
 
 export { articlesAPI, firebaseAPI }
