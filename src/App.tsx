@@ -14,6 +14,7 @@ import { verifyAuth } from './redux/auth-reducer'
 import Preloader from './components/common/Preloader'
 import { initializeApp } from './redux/app-reducer'
 import withThemeProvider from './hocs/withThemeProvider'
+import Page404 from './components/Page404'
 
 const styles = (theme: Theme) => ({
   background: {
@@ -63,6 +64,9 @@ class App extends React.Component<Props> {
           </Route>
           <Route exact path={ROUTES.SIGN_IN}>
             <Login />
+          </Route>
+          <Route exact path='*'>
+            <Page404 />
           </Route>
         </Switch>
       </div>
